@@ -13,13 +13,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Use Gradle Wrapper
-        run: gradle wrapper --gradle-version 8.2
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Run Build
+        run: |
+          # Скачиваем официальный gradle, если нет wrapper'а
+          gradle build
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: SizeMod-Jar
           path: sizemod/build/libs/*.jar
-        
