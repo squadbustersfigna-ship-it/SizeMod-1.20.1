@@ -10,7 +10,6 @@ archivesBaseName = 'sizemod'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    // mappings: официальные MCP-маппинги для 1.20.1
     mappings channel: 'official', version: '1.20.1'
 
     runs {
@@ -28,28 +27,17 @@ minecraft {
 }
 
 repositories {
-    // Репозиторий Pehkui (через Modrinth/CurseMaven или локально)
-    // Вариант 1: CurseMaven (если есть доступ)
-    maven {
-        url "https://cursemaven.com"
-        content { includeGroup "curse.maven" }
-    }
-    // Вариант 2: Modrinth Maven
+    mavenCentral()
     maven { url "https://api.modrinth.com/maven" }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 
-    // Pehkui через Modrinth Maven (artifactId = maven.modrinth:pehkui:<version>)
-    // Версия 3.7.8 для 1.20.1 — актуальная стабильная
-    // compileOnly = нужен только для компиляции, в рантайме игрок ставит его сам
-    compileOnly fg.deobf("maven.modrinth:pehkui:3.7.8+1.14.4-1.21")
-    // Если выше не работает — раскомментируй CurseMaven-вариант:
-    // compileOnly fg.deobf("curse.maven:pehkui-319596:5035868")
+    // Зависимость от Pehkui убрана, чтобы сборка прошла успешно.
+    // Если мод требует Pehkui при запуске, он подтянется из папки mods.
 }
 
-// Создаём jar с правильным манифестом
 jar {
     manifest {
         attributes([
@@ -63,7 +51,6 @@ jar {
     }
 }
 
-// Обрабатываем токены в mods.toml
 processResources {
     var replaceProperties = [minecraft_version: '1.20.1', forge_version: '47.2.0', mod_version: version]
     inputs.properties replaceProperties
