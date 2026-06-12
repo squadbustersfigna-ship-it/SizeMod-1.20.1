@@ -1,0 +1,73 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+version = '1.0.0'
+group = 'com.depixar.sizemod'
+archivesBaseName = 'sizemod'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    // mappings: официальные MCP-маппинги для 1.20.1
+    mappings channel: 'official', version: '1.20.1'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            mods { sizemod { source sourceSets.main } }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            mods { sizemod { source sourceSets.main } }
+        }
+    }
+}
+
+repositories {
+    // Репозиторий Pehkui (через Modrinth/CurseMaven или локально)
+    // Вариант 1: CurseMaven (если есть доступ)
+    maven {
+        url "https://cursemaven.com"
+        content { includeGroup "curse.maven" }
+    }
+    // Вариант 2: Modrinth Maven
+    maven { url "https://api.modrinth.com/maven" }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+
+    // Pehkui через Modrinth Maven (artifactId = maven.modrinth:pehkui:<version>)
+    // Версия 3.7.8 для 1.20.1 — актуальная стабильная
+    // compileOnly = нужен только для компиляции, в рантайме игрок ставит его сам
+    compileOnly fg.deobf("maven.modrinth:pehkui:3.7.8+1.14.4-1.21")
+    // Если выше не работает — раскомментируй CurseMaven-вариант:
+    // compileOnly fg.deobf("curse.maven:pehkui-319596:5035868")
+}
+
+// Создаём jar с правильным манифестом
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'     : 'sizemod',
+            'Specification-Vendor'    : 'depixar',
+            'Specification-Version'   : '1',
+            'Implementation-Title'    : project.name,
+            'Implementation-Version'  : project.jar.archiveVersion,
+            'Implementation-Vendor'   : 'depixar',
+        ])
+    }
+}
+
+// Обрабатываем токены в mods.toml
+processResources {
+    var replaceProperties = [minecraft_version: '1.20.1', forge_version: '47.2.0', mod_version: version]
+    inputs.properties replaceProperties
+    filesMatching(['META-INF/mods.toml']) {
+        expand replaceProperties
+    }
+}

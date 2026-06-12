@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[dependencies.sizemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.sizemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+# Pehkui — обязательная зависимость (мод не запустится без него)
+[[dependencies.sizemod]]
+    modId="pehkui"
+    mandatory=true
+    versionRange="[3.7,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[mods]]
+    modId="sizemod"
+    version="1.0.0"
+    displayName="Size Mod"
+    description='''
+        Adds size-changing potions using Pehkui API.
+        Shrink to 0.5x, grow to 2.0x, or restore to default.
+    '''
