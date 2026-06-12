@@ -13,10 +13,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Run Build
-        run: |
-          # Скачиваем официальный gradle, если нет wrapper'а
-          gradle build
+      - name: Force Gradle 8.2
+        run: gradle wrapper --gradle-version 8.2
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
