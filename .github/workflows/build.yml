@@ -1,0 +1,22 @@
+name: Build Mod
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sizemod
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build with Gradle
+        run: ./gradlew build || gradle build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SizeMod-Jar
+          path: sizemod/build/libs/*.jar
