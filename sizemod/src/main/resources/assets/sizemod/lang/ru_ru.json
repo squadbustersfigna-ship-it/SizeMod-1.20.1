@@ -1,0 +1,7 @@
+{
+  "effect.sizemod.shrink": "Уменьшение",
+  "effect.sizemod.growth": "Увеличение",
+  "item.minecraft.potion.effect.sizemod.shrinking": "Зелье уменьшения",
+  "item.minecraft.potion.effect.sizemod.growth": "Зелье увеличения",
+  "item.minecraft.potion.effect.sizemod.restoration": "Зелье восстановления"
+}
