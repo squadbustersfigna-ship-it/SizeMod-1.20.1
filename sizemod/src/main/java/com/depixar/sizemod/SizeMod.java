@@ -2,7 +2,6 @@ package com.depixar.sizemod;
 
 import com.depixar.sizemod.effect.ModEffects;
 import com.depixar.sizemod.potion.ModPotions;
-import com.depixar.sizemod.item.ModItems;
 import com.depixar.sizemod.event.BrewingRecipeHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
