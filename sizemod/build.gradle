@@ -34,8 +34,8 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 
-    // Теперь сборщик будет видеть классы Pehkui при компиляции
-    compileOnly fg.deobf("maven.modrinth:pehkui:3.7.8+1.14.4-1.21")
+    // Подключаем API Pehkui только для компиляции
+    compileOnly "maven.modrinth:pehkui:3.7.8+1.14.4-1.21"
 }
 
 jar {
