@@ -34,8 +34,8 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 
-    // Зависимость от Pehkui убрана, чтобы сборка прошла успешно.
-    // Если мод требует Pehkui при запуске, он подтянется из папки mods.
+    // Теперь сборщик будет видеть классы Pehkui при компиляции
+    compileOnly fg.deobf("maven.modrinth:pehkui:3.7.8+1.14.4-1.21")
 }
 
 jar {
