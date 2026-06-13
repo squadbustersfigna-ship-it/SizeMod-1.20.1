@@ -15,6 +15,8 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import virtuoel.pehkui.api.ScaleData;
+import virtuoel.pehkui.api.ScaleTypes;
 
 @Mod.EventBusSubscriber(modid = SizeMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BrewingRecipeHandler {
@@ -57,11 +59,19 @@ class ItemUseHandler {
     public static void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
         ItemStack stack = event.getItem();
         LivingEntity entity = event.getEntity();
-        if (stack.getItem() == Items.POTION) {
-            Potion potion = PotionUtils.getPotion(stack);
-            if (potion == ModPotions.RESTORATION_POTION.get()) {
-                RestorationPotion.applyRestoration(entity);
-            }
+
+        if (stack.getItem() != Items.POTION) return;
+
+        Potion potion = PotionUtils.getPotion(stack);
+        ScaleData scaleData = ScaleTypes.BASE.getScaleData(entity);
+        float current = scaleData.getScale();
+
+        if (potion == ModPotions.SHRINKING_POTION.get()) {
+            scaleData.setScale(current / 2.0f);
+        } else if (potion == ModPotions.GROWTH_POTION.get()) {
+            scaleData.setScale(current * 2.0f);
+        } else if (potion == ModPotions.RESTORATION_POTION.get()) {
+            RestorationPotion.applyRestoration(entity);
         }
     }
 }
